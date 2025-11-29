@@ -1,0 +1,3 @@
+[submodule "aosp-dictionaries"]
+	path = aosp-dictionaries
+	url = https://codeberg.org/Helium314/aosp-dictionaries
