@@ -14,4 +14,6 @@ for wl in aosp-dictionaries/wordlists/main_fr.combined; do
   echo "=> $out"
   if [[ -e $out ]]; then continue; fi
   cdict_tool build -o "$out" "$wl"
+  gzip -9 -c "$out" > "$out.gz"
+  mv "$out.gz" "$out"
 done
