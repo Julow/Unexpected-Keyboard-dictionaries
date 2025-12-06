@@ -8,7 +8,7 @@ FORMAT_VERSION=$(cdict_tool format-version)
 OUT_DIR="v$FORMAT_VERSION"
 mkdir -p "$OUT_DIR"
 
-for wl in aosp-dictionaries/wordlists/main_fr.combined; do
+for wl in aosp-dictionaries/wordlists/main_*.combined; do
   wl_name=${wl##*/main_}
   wl_name=${wl_name%%.*}
   out="$OUT_DIR/$wl_name.dict"
