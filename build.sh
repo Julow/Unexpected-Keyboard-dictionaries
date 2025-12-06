@@ -4,7 +4,8 @@ set -e
 (cd cdict/; dune build -p dfa,cdict,cdict-tool)
 cdict_tool () { cdict/_build/install/default/bin/cdict-tool "$@"; }
 
-OUT_DIR="v$(cdict_tool format-version)"
+FORMAT_VERSION=$(cdict_tool format-version)
+OUT_DIR="v$FORMAT_VERSION"
 mkdir -p "$OUT_DIR"
 
 for wl in aosp-dictionaries/wordlists/main_fr.combined; do
@@ -17,3 +18,7 @@ for wl in aosp-dictionaries/wordlists/main_fr.combined; do
   gzip -9 -c "$out" > "$out.gz"
   mv "$out.gz" "$out"
 done
+
+mkdir -p gen
+python gen_dict_list.py "$OUT_DIR" \
+  > "gen/SupportedDictionaries.v$FORMAT_VERSION.java"
