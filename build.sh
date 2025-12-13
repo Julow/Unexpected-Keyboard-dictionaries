@@ -30,8 +30,8 @@ for wl in aosp-dictionaries/wordlists/main_*.combined; do
   if [[ ${disabled[$wl_name]} = 1 ]]; then continue; fi
   out="$OUT_DIR/$wl_name.dict"
   echo "=> $out"
-  if [[ -e $out ]]; then continue; fi
-  cdict_tool build -o "$out" "$wl"
+  if [[ -e $out ]]; then echo "(cached)"; continue; fi
+  cdict_tool build -o "$out" "main:$wl"
   gzip -9 -c "$out" > "$out.gz"
   mv "$out.gz" "$out"
 done
