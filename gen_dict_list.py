@@ -1,3 +1,4 @@
+import xml.etree.ElementTree as ET
 import sys, os, glob, re
 
 # This script generates into gen/vN:
@@ -23,50 +24,37 @@ def scan_dicts(d):
             if ext == ".dict":
                 yield (dict_name, ent.stat().st_size)
 
-def gen_dict_list_for_dir(dicts, output):
-    def gen_dict_enum(d):
-        dict_name, size = d
-        sn = dict_name # Short name
-        return "%s(\"%s\", R.string.dict_name_%s, %d)" % (
-                sn.upper(), sn, sn.lower(), size)
-    print("""package juloo.keyboard2.dict;
+def gen_array(root, name, array, array_kind="string-array"):
+    array_elt = ET.SubElement(root, array_kind, attrib={ "name": name })
+    for elt in array:
+        item = ET.SubElement(array_elt, "item")
+        item.text = elt
 
-import juloo.keyboard2.R;
+def dict_name_res(d):
+    return "dict_name_" + d[0].lower()
 
-public enum SupportedDictionaries
-{
-  /** Enumeration of the supported dictionaries. */
+def dict_name_res_ref(d):
+    return "@string/" + dict_name_res(d)
 
-  %s;
+def dict_name_text(d):
+    loc = d[0].replace("_", "-")
+    return locales.get(loc, loc)
 
-  /** Associated information. */
-
-  public final String locale; /** Locale that matches this dictionary. */
-  public final int name_resource; /** Display name. */
-  public final int size; /** Size in bytes of the dictionary file. */
-
-  SupportedDictionaries(String l, int r, int s)
-  { locale = l; name_resource = r; size = s; }
-
-  /** Name used in preferences, URLs and file names. */
-  public String internal_name() { return locale; }
-}""" % ",\n  ".join(map(gen_dict_enum, dicts)), file=output)
-
-def gen_dict_names_for_dir(dicts, output):
-    def gen_string(d):
-        dict_name, _s = d
-        loc = dict_name.replace("_", "-")
-        return "<string name=\"dict_name_%s\">%s</string>" % (
-                dict_name.lower(), locales.get(loc, loc))
-    print("""<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  %s
-</resources>""" % "\n  ".join(map(gen_string, dicts)), file=output)
+def gen_dict_list_xml(dicts, output):
+    root = ET.Element("resources")
+    for d in dicts:
+        elt = ET.SubElement(root, "string")
+        elt.attrib["name"] = dict_name_res(d)
+        elt.text = dict_name_text(d)
+    gen_array(root, "dictionaries_locale", ( n for n, _ in dicts ))
+    gen_array(root, "dictionaries_name", map(dict_name_res_ref, dicts))
+    gen_array(root, "dictionaries_size", ( str(s) for _, s in dicts ),
+              array_kind="integer-array")
+    ET.indent(root)
+    output.write(ET.tostring(root, encoding="utf-8", xml_declaration=True).decode("UTF-8"))
 
 for v_dir in sys.argv[1:]:
     dicts = list(scan_dicts(v_dir))
     v_name = os.path.basename(v_dir)
-    with open("gen/%s/SupportedDictionaries.java" % v_name, "w") as output:
-        gen_dict_list_for_dir(dicts, output)
-    with open("gen/%s/dict_names.xml" % v_name, "w") as output:
-        gen_dict_names_for_dir(dicts, output)
+    with open("gen/%s/dictionaries.xml" % v_name, "w") as output:
+        gen_dict_list_xml(dicts, output)
