@@ -31,7 +31,12 @@ for wl in aosp-dictionaries/wordlists/main_*.combined; do
   out="$OUT_DIR/$wl_name.dict"
   echo "=> $out"
   if [[ -e $out ]]; then echo "(cached)"; continue; fi
-  cdict_tool build -o "$out" "main:$wl"
+  emoji_dict="aosp-dictionaries/wordlists/emoji_$wl_name.combined"
+  extra_args=()
+  if [[ -e $emoji_dict ]]; then
+    extra_args+=("emoji:$emoji_dict")
+  fi
+  cdict_tool build --subst-file=substitutions.json -o "$out" "main:$wl" "${extra_args[@]}"
   gzip -9 -c "$out" > "$out.gz"
   mv "$out.gz" "$out"
 done
