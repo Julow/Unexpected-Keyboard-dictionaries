@@ -58,8 +58,6 @@ def gen_dict_list_xml(dicts, output):
 
 for v_dir in sys.argv[1:]:
     dicts = list(scan_dicts(v_dir))
-    v_name = os.path.basename(v_dir)
-    gen_dir = "gen/" + v_name
-    with open(gen_dir + "/dictionaries.xml", "w") as output:
+    with open(v_dir + "/dictionaries.xml", "w") as output:
         gen_dict_list_xml(dicts, output)
-    shutil.copyfile("substitutions.json", gen_dir + "/substitutions.json")
+    shutil.copyfile("substitutions.json", v_dir + "/substitutions.json")
