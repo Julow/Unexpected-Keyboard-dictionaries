@@ -31,9 +31,8 @@ add aosp-dictionaries/wordlists_experimental/main_*.combined
 # Add stable wordlists last so they take precedence
 add aosp-dictionaries/wordlists/main_*.combined
 
-# Wordlists that are ignored because they do not have a corresponding entry in
-# locale_config.xml
-remove eo gom he hi_ZZ ks la mwl sr_ZZ tcy tok zgh_ZZ
+# Language codes that are not supported by the Babel library
+remove mwl tcy
 
 # Crashes the parser
 remove bn_BD hy_east pms
