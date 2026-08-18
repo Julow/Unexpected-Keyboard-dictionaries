@@ -8,26 +8,38 @@ FORMAT_VERSION=$(cdict_tool format-version)
 OUT_DIR="v$FORMAT_VERSION"
 mkdir -p "$OUT_DIR" "gen/v$FORMAT_VERSION"
 
+declare -A wordlists=()
+
+add()
+{
+  for wl in "$@"; do
+    wl_name=${wl##*/main_}
+    wl_name=${wl_name%%.*}
+    wordlists[$wl_name]="$wl"
+  done
+}
+
+remove()
+{
+  for wl in "$@"; do
+    unset 'wordlists[$wl]'
+  done
+}
+
+# Add experimental wordlists
+add aosp-dictionaries/wordlists_experimental/main_*.combined
+# Add stable wordlists last so they take precedence
+add aosp-dictionaries/wordlists/main_*.combined
+
 # Wordlists that are ignored because they do not have a corresponding entry in
 # locale_config.xml
-declare -A disabled=(
-  [eo]=1
-  [gom]=1
-  [he]=1
-  [hi_ZZ]=1
-  [ks]=1
-  [la]=1
-  [mwl]=1
-  [sr_ZZ]=1
-  [tcy]=1
-  [tok]=1
-  [zgh_ZZ]=1
-)
+remove eo gom he hi_ZZ ks la mwl sr_ZZ tcy tok zgh_ZZ
 
-for wl in aosp-dictionaries/wordlists/main_*.combined; do
-  wl_name=${wl##*/main_}
-  wl_name=${wl_name%%.*}
-  if [[ ${disabled[$wl_name]} = 1 ]]; then continue; fi
+# Crashes the parser
+remove bn_BD hy_east pms
+
+for wl_name in "${!wordlists[@]}"; do
+  wl="${wordlists[$wl_name]}"
   out="$OUT_DIR/$wl_name.dict"
   echo "=> $out"
   if [[ -e $out ]]; then echo "(cached)"; continue; fi
