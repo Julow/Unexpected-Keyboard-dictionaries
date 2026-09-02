@@ -6,6 +6,7 @@
   <string name="dict_name_az">Azərbaycan</string>
   <string name="dict_name_be">Беларуская</string>
   <string name="dict_name_bg">Български</string>
+  <string name="dict_name_bn">বাংলা</string>
   <string name="dict_name_bs">Bosanski</string>
   <string name="dict_name_ca">Català</string>
   <string name="dict_name_ceb">Cebuano</string>
@@ -36,6 +37,7 @@
   <string name="dict_name_hr">Hrvatski</string>
   <string name="dict_name_hu">Magyar</string>
   <string name="dict_name_hy">Հայերեն</string>
+  <string name="dict_name_hy_east">Հայերեն</string>
   <string name="dict_name_id">Indonesia</string>
   <string name="dict_name_is">Íslenska</string>
   <string name="dict_name_it">Italiano</string>
@@ -93,6 +95,7 @@
     <item>az</item>
     <item>be</item>
     <item>bg</item>
+    <item>bn</item>
     <item>bs</item>
     <item>ca</item>
     <item>ceb</item>
@@ -123,6 +126,7 @@
     <item>hr</item>
     <item>hu</item>
     <item>hy</item>
+    <item>hy_east</item>
     <item>id</item>
     <item>is</item>
     <item>it</item>
@@ -181,6 +185,7 @@
     <item>@string/dict_name_az</item>
     <item>@string/dict_name_be</item>
     <item>@string/dict_name_bg</item>
+    <item>@string/dict_name_bn</item>
     <item>@string/dict_name_bs</item>
     <item>@string/dict_name_ca</item>
     <item>@string/dict_name_ceb</item>
@@ -211,6 +216,7 @@
     <item>@string/dict_name_hr</item>
     <item>@string/dict_name_hu</item>
     <item>@string/dict_name_hy</item>
+    <item>@string/dict_name_hy_east</item>
     <item>@string/dict_name_id</item>
     <item>@string/dict_name_is</item>
     <item>@string/dict_name_it</item>
@@ -263,91 +269,93 @@
     <item>@string/dict_name_zgh_zz</item>
   </string-array>
   <integer-array name="dictionaries_size">
-    <item>1458531</item>
-    <item>1077284</item>
-    <item>311104</item>
-    <item>362264</item>
-    <item>11487838</item>
-    <item>2211245</item>
-    <item>906318</item>
-    <item>407162</item>
-    <item>214142</item>
-    <item>1568990</item>
-    <item>1546708</item>
-    <item>2255828</item>
-    <item>14333196</item>
-    <item>2266721</item>
-    <item>2238286</item>
-    <item>965101</item>
-    <item>1072227</item>
-    <item>965318</item>
-    <item>975286</item>
-    <item>161937</item>
-    <item>1052721</item>
-    <item>5019706</item>
-    <item>414028</item>
-    <item>8351826</item>
-    <item>1658577</item>
-    <item>1605656</item>
-    <item>8234107</item>
-    <item>357839</item>
-    <item>523821</item>
-    <item>481763</item>
-    <item>335474</item>
-    <item>470055</item>
-    <item>1180268</item>
-    <item>1321146</item>
-    <item>707022</item>
-    <item>928463</item>
-    <item>683716</item>
-    <item>2292003</item>
-    <item>893058</item>
-    <item>353368</item>
-    <item>488102</item>
-    <item>737641</item>
-    <item>6718562</item>
+    <item>1459395</item>
+    <item>1065727</item>
+    <item>305248</item>
+    <item>361931</item>
+    <item>11487817</item>
+    <item>2239764</item>
+    <item>556287</item>
+    <item>904528</item>
+    <item>397095</item>
+    <item>210101</item>
+    <item>1535079</item>
+    <item>1508529</item>
+    <item>2222601</item>
+    <item>14360208</item>
+    <item>2231642</item>
+    <item>2212678</item>
+    <item>953539</item>
+    <item>1070265</item>
+    <item>953253</item>
+    <item>962870</item>
+    <item>158413</item>
+    <item>1031292</item>
+    <item>5020064</item>
+    <item>415547</item>
+    <item>8399442</item>
+    <item>1607469</item>
+    <item>1580052</item>
+    <item>8236475</item>
+    <item>349036</item>
+    <item>519886</item>
+    <item>478303</item>
+    <item>335479</item>
+    <item>466048</item>
+    <item>1169751</item>
+    <item>1274754</item>
+    <item>704518</item>
+    <item>887655</item>
+    <item>438029</item>
+    <item>690443</item>
+    <item>2279624</item>
+    <item>861937</item>
+    <item>332906</item>
+    <item>478446</item>
+    <item>728093</item>
+    <item>6748356</item>
     <item>263410</item>
-    <item>286770</item>
-    <item>40336</item>
-    <item>568596</item>
-    <item>697616</item>
-    <item>1516538</item>
-    <item>1979209</item>
-    <item>459926</item>
-    <item>51820</item>
-    <item>2461372</item>
-    <item>354837</item>
-    <item>495616</item>
-    <item>1082561</item>
-    <item>2231349</item>
-    <item>1084709</item>
-    <item>9492921</item>
-    <item>364221</item>
-    <item>107124</item>
-    <item>1447985</item>
-    <item>1110264</item>
-    <item>1829651</item>
-    <item>2101176</item>
-    <item>2253438</item>
-    <item>610942</item>
-    <item>323056</item>
-    <item>358828</item>
-    <item>535705</item>
-    <item>7389495</item>
-    <item>373031</item>
-    <item>1770209</item>
-    <item>1272009</item>
-    <item>1587784</item>
-    <item>297738</item>
-    <item>304866</item>
-    <item>645816</item>
-    <item>70013</item>
-    <item>1600</item>
-    <item>1497525</item>
-    <item>7456269</item>
-    <item>573456</item>
-    <item>116454</item>
-    <item>628165</item>
-    <item>1134055</item>
+    <item>279787</item>
+    <item>40217</item>
+    <item>554917</item>
+    <item>699647</item>
+    <item>1479011</item>
+    <item>1958833</item>
+    <item>454756</item>
+    <item>51874</item>
+    <item>2461690</item>
+    <item>349895</item>
+    <item>491496</item>
+    <item>1057667</item>
+    <item>2244500</item>
+    <item>1055918</item>
+    <item>9473630</item>
+    <item>357497</item>
+    <item>105128</item>
+    <item>1407128</item>
+    <item>1085492</item>
+    <item>1801818</item>
+    <item>2015008</item>
+    <item>2214915</item>
+    <item>608002</item>
+    <item>316860</item>
+    <item>358966</item>
+    <item>531682</item>
+    <item>7097862</item>
+    <item>358218</item>
+    <item>1736842</item>
+    <item>1239986</item>
+    <item>1553292</item>
+    <item>290728</item>
+    <item>298644</item>
+    <item>641028</item>
+    <item>68377</item>
+    <item>1592</item>
+    <item>1468143</item>
+    <item>7457735</item>
+    <item>570834</item>
+    <item>116349</item>
+    <item>629040</item>
+    <item>1134704</item>
   </integer-array>
 </resources>
