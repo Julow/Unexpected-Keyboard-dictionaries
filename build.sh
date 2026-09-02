@@ -37,10 +37,12 @@ remove mwl tcy
 # Crashes the parser
 remove bn_BD hy_east pms
 
+i=0
 for wl_name in "${!wordlists[@]}"; do
+  i=$((i+1))
   wl="${wordlists[$wl_name]}"
   out="$OUT_DIR/$wl_name.dict"
-  echo "=> $out"
+  printf "[%02d/%d] => %s\n" "$i" "${#wordlists[@]}" "$out"
   if [[ -e $out ]]; then echo "(cached)"; continue; fi
   extra_args=()
   emoji_dict="aosp-dictionaries/wordlists/emoji_$wl_name.combined"
@@ -54,7 +56,7 @@ for wl_name in "${!wordlists[@]}"; do
     fi
   fi
   cdict_tool build --subst-file=substitutions.json -o "$out" "main:$wl" "${extra_args[@]}"
-  gzip -9 -c "$out" > "$out.gz"
+  gzip -9 -n -c "$out" > "$out.gz"
   mv "$out.gz" "$out"
 done
 
