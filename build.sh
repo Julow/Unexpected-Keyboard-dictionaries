@@ -32,10 +32,10 @@ add aosp-dictionaries/wordlists_experimental/main_*.combined
 add aosp-dictionaries/wordlists/main_*.combined
 
 # Language codes that are not supported by the Babel library
-remove mwl tcy
+remove mwl tcy bn2 el2 tr2
 
 # Crashes the parser
-remove bn_BD hy_east pms
+remove bn_BD hy_east pms bn
 
 i=0
 for wl_name in "${!wordlists[@]}"; do
