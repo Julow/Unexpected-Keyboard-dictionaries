@@ -1,5 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
+  <!-- Dictionaries are built and hosted at
+       https://github.com/Julow/Unexpected-Keyboard-dictionaries
+       Checksums are reproducible. -->
   <string name="dict_name_af">Afrikaans</string>
   <string name="dict_name_ar">العربية</string>
   <string name="dict_name_as">অসমীয়া</string>

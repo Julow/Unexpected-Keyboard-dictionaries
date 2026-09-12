@@ -43,6 +43,9 @@ def dict_name_res_ref(d):
 
 def gen_dict_list_xml(dicts, checksums, output):
     root = ET.Element("resources")
+    root.append(ET.Comment(""" Dictionaries are built and hosted at
+       https://github.com/Julow/Unexpected-Keyboard-dictionaries
+       Checksums are reproducible. """))
     for d in dicts:
         elt = ET.SubElement(root, "string")
         elt.attrib["name"] = dict_name_res(d)
