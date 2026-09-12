@@ -57,4 +57,6 @@ for wl_name in "${!wordlists[@]}"; do
   mv "$out.gz" "$out"
 done
 
+(cd v1; sha256sum *.dict > checksums.txt)
+
 python gen_dict_list.py "$OUT_DIR"

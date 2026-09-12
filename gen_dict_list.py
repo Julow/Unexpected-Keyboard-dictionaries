@@ -21,6 +21,14 @@ def scan_dicts(d):
             if ext == ".dict":
                 yield (dict_name, ent.stat().st_size)
 
+def parse_checksums(f):
+    r = {}
+    with open(f) as inp:
+        for l in inp:
+            sum, name = l.split("  ", 2)
+            r[name.removesuffix(".dict\n")] = sum
+    return r
+
 def gen_array(root, name, array, array_kind="string-array"):
     array_elt = ET.SubElement(root, array_kind, attrib={ "name": name })
     for elt in array:
@@ -33,7 +41,7 @@ def dict_name_res(d):
 def dict_name_res_ref(d):
     return "@string/" + dict_name_res(d)
 
-def gen_dict_list_xml(dicts, output):
+def gen_dict_list_xml(dicts, checksums, output):
     root = ET.Element("resources")
     for d in dicts:
         elt = ET.SubElement(root, "string")
@@ -43,11 +51,13 @@ def gen_dict_list_xml(dicts, output):
     gen_array(root, "dictionaries_name", map(dict_name_res_ref, dicts))
     gen_array(root, "dictionaries_size", ( str(s) for _, s in dicts ),
               array_kind="integer-array")
+    gen_array(root, "dictionaries_sha256", ( checksums[n] for n, _ in dicts ))
     ET.indent(root)
     output.write(ET.tostring(root, encoding="utf-8", xml_declaration=True).decode("UTF-8"))
 
 for v_dir in sys.argv[1:]:
     dicts = list(scan_dicts(v_dir))
+    checksums = parse_checksums(v_dir + "/checksums.txt")
     with open(v_dir + "/dictionaries.xml", "w") as output:
-        gen_dict_list_xml(dicts, output)
+        gen_dict_list_xml(dicts, checksums, output)
     shutil.copyfile("substitutions.json", v_dir + "/substitutions.json")
