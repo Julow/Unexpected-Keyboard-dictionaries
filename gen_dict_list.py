@@ -1,5 +1,5 @@
 import xml.etree.ElementTree as ET
-import sys, os, glob, re, shutil
+import sys, os, glob, re, shutil, base64
 import babel # External dependency
 
 # This script generates into gen/vN:
@@ -29,6 +29,9 @@ def parse_checksums(f):
             r[name.removesuffix(".dict\n")] = sum
     return r
 
+def hex_to_base64(s):
+    return base64.b64encode(bytes.fromhex(s)).decode()
+
 def gen_array(root, name, array, array_kind="string-array"):
     array_elt = ET.SubElement(root, array_kind, attrib={ "name": name })
     for elt in array:
@@ -54,7 +57,10 @@ def gen_dict_list_xml(dicts, checksums, output):
     gen_array(root, "dictionaries_name", map(dict_name_res_ref, dicts))
     gen_array(root, "dictionaries_size", ( str(s) for _, s in dicts ),
               array_kind="integer-array")
-    gen_array(root, "dictionaries_sha256", ( checksums[n] for n, _ in dicts ))
+    # Use base64 instead of the usual hex format as it's easier to decode on
+    # the application side. It's also shorter.
+    gen_array(root, "dictionaries_sha256",
+              ( hex_to_base64(checksums[n]) for n, _ in dicts ))
     ET.indent(root)
     output.write(ET.tostring(root, encoding="utf-8", xml_declaration=True).decode("UTF-8"))
 
