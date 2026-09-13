@@ -21,12 +21,15 @@ def scan_dicts(d):
             if ext == ".dict":
                 yield (dict_name, ent.stat().st_size)
 
-def parse_checksums(f):
+def parse_checksums(d):
     r = {}
-    with open(f) as inp:
-        for l in inp:
-            sum, name = l.split("  ", 2)
-            r[name.removesuffix(".dict\n")] = sum
+    for ent in sorted(os.scandir(d), key=lambda ent: ent.name):
+        if ent.is_file():
+            dict_name, ext = os.path.splitext(os.path.basename(ent.path))
+            if ext == ".sha256":
+                with open(ent.path) as inp:
+                    sum, _ = next(inp).split("  ", 2)
+                r[dict_name.removesuffix(".dict")] = sum
     return r
 
 def hex_to_base64(s):
@@ -66,7 +69,7 @@ def gen_dict_list_xml(dicts, checksums, output):
 
 for v_dir in sys.argv[1:]:
     dicts = list(scan_dicts(v_dir))
-    checksums = parse_checksums(v_dir + "/checksums.txt")
+    checksums = parse_checksums(v_dir)
     with open(v_dir + "/dictionaries.xml", "w") as output:
         gen_dict_list_xml(dicts, checksums, output)
     shutil.copyfile("substitutions.json", v_dir + "/substitutions.json")

@@ -54,9 +54,8 @@ for wl_name in "${!wordlists[@]}"; do
   fi
   cdict_tool build --subst-file=substitutions.json -o "$out" "main:$wl" "${extra_args[@]}"
   gzip -9 -n -c "$out" > "$out.gz"
+  sha256sum "$out" > "$out.sha256"
   mv "$out.gz" "$out"
 done
-
-(cd v1; sha256sum *.dict > checksums.txt)
 
 python gen_dict_list.py "$OUT_DIR"
